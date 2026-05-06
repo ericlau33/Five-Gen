@@ -1,12 +1,16 @@
 {
   "name": "wudaitongtang-skill",
-  "display_name": "五代同糖 AI 侍应生",
-  "description": "五代同糖甜品品牌 AI 助手。查询门店信息、甜品菜单、外卖配送、店内Wi-Fi、最新动态；内嵌美团排队 Skill 支持在线取号。",
-  "version": "0.2.0",
+  "display_name": "五代同糖 AI 甜品助手",
+  "description": "五代同糖甜品品牌 AI 助手。查询门店信息、甜品菜单、Wi-Fi、外卖、最新动态；查询排队状态；内嵌美团排队 Skill 支持在线取号。",
+  "version": "0.3.0",
   "author": "五代同糖",
   "license": "MIT",
   "repository": "https://github.com/ericlau33/Five-Gen",
   "category": "餐饮服务",
+  "mcp_server": {
+    "url": "https://wudaitongtang-d9g9bhfx04e19a1d3.service.tcloudbase.com/mcp",
+    "transport": "streamable-http"
+  },
   "keywords": [
     "五代同糖",
     "糖水",
@@ -97,10 +101,31 @@
     {
       "name": "get_wifi_info",
       "display_name": "店内Wi-Fi",
-      "description": "获取五代同糖门店Wi-Fi连接信息。",
+      "description": "获取五代同糖门店Wi-Fi连接信息（名称和密码）。",
       "inputSchema": {
         "type": "object",
         "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get_queue_info",
+      "display_name": "排队查询",
+      "description": "查询五代同糖指定门店的排队状态（是否支持排队、当前等待人数、桌型等）。需要门店 shop_id。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "shopId": {
+            "type": "string",
+            "description": "门店 shop_id"
+          }
+        },
+        "required": ["shopId"]
       },
       "annotations": {
         "readOnlyHint": true,

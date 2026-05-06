@@ -1,7 +1,7 @@
 ---
 name: wudaitongtang-skill
 description: 五代同糖·甜品糖水专门店 AI 助手。查询门店信息、甜品菜单、外卖配送、店内Wi-Fi、最新动态；内嵌美团排队 Skill 支持在线取号、查进度、取消排队。
-version: 0.2.0
+version: 0.3.0
 alwaysApply: false
 keywords:
   - 五代同糖
@@ -27,7 +27,13 @@ keywords:
 
 > **⚠️ AI Agent 必读**
 >
-> 回答用户问题时，**必须调用 MCP 工具获取最新数据**，不得直接使用文档中的示例值。
+> 本 Skill 提供 **MCP 服务端**（Streamable HTTP），优先通过 MCP 工具获取数据。
+>
+> **MCP 端点**：`https://wudaitongtang-d9g9bhfx04e19a1d3.service.tcloudbase.com/mcp`
+>
+> **可用工具**：`get_restaurant_info`、`get_menu_info`、`get_wifi_info`、`get_delivery_info`、`get_latest_news`、`get_queue_info`
+>
+> **排队取号**：读操作（查排队状态）用 MCP 工具 `get_queue_info`；写操作（取号/取消）用内嵌 `meituan-queue` Skill。
 >
 > **降级策略**：MCP 调用失败或超时时，可使用本文档静态数据回复。
 
@@ -67,8 +73,9 @@ keywords:
 | "五代同糖在哪？"/"营业时间？"/"有什么门店" | `get_restaurant_info` |
 | "有什么甜品？"/"推荐一下"/"鬼口水是什么" | `get_menu_info` |
 | "能送外卖吗？"/"配送范围？"/"怎么点外卖" | `get_delivery_info` |
-| "Wi-Fi 密码？" | `get_wifi_info` |
-| "最近有什么活动？"/"有什么新消息" | `get_latest_news` |
+| "Wi-Fi 密码？" | `get_wifi_info` (MCP) |
+| "最近有什么活动？"/"有什么新消息" | `get_latest_news` (MCP) |
+| "排队情况"/"前面有多少人" | `get_queue_info` (MCP) — 传 shop_id |
 | "怎么排队？"/"帮我取号"/"等位"/"排个队" | 内嵌 Skill：`meituan-queue` |
 | "排队进度"/"前面还有几桌" | 内嵌 Skill：`meituan-queue` → `order_detail` |
 | "取消排队" | 内嵌 Skill：`meituan-queue` → `order_cancel` |
@@ -175,3 +182,4 @@ keywords:
 - 营业时间：大部分门店 10:00-22:00
 - 外卖平台：美团 / 大众点评
 - 排队系统：美团排队
+- MCP 端点：`https://wudaitongtang-d9g9bhfx04e19a1d3.service.tcloudbase.com/mcp`

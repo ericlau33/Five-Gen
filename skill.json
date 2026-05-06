@@ -1,0 +1,121 @@
+{
+  "name": "wudaitongtang-skill",
+  "display_name": "五代同糖 AI 侍应生",
+  "description": "五代同糖甜品品牌 AI 助手。查询门店信息、甜品菜单、外卖配送、店内Wi-Fi、最新动态；内嵌美团排队 Skill 支持在线取号。",
+  "version": "0.2.0",
+  "author": "五代同糖",
+  "license": "MIT",
+  "repository": "https://github.com/ericlau33/Five-Gen",
+  "category": "餐饮服务",
+  "keywords": [
+    "五代同糖",
+    "糖水",
+    "甜品",
+    "港式甜品",
+    "鬼口水",
+    "杨枝金露",
+    "榴莲河粉",
+    "雪花冰",
+    "广州甜品",
+    "深圳甜品",
+    "吃什么",
+    "甜品推荐",
+    "排队",
+    "取号"
+  ],
+  "tools": [
+    {
+      "name": "get_restaurant_info",
+      "display_name": "门店信息查询",
+      "description": "查询五代同糖门店信息。可指定城市查找对应门店，不传参数则返回全部门店列表。包含地址、营业时间、门店特色。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string",
+            "description": "城市名（可选），如：广州、深圳"
+          }
+        }
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get_menu_info",
+      "display_name": "甜品菜单",
+      "description": "查询五代同糖甜品菜单。可指定分类（招牌必点/雪花冰/麻薯/河粉肠粉/经典糖水），不传则返回完整菜单含价格。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "分类名（可选），如：招牌必点、雪花冰"
+          }
+        }
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get_delivery_info",
+      "display_name": "外卖服务",
+      "description": "获取五代同糖外卖配送信息。用户询问能否送外卖、怎么点外卖时使用。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get_latest_news",
+      "display_name": "最新消息",
+      "description": "获取五代同糖最新动态和活动信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get_wifi_info",
+      "display_name": "店内Wi-Fi",
+      "description": "获取五代同糖门店Wi-Fi连接信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    }
+  ],
+  "brand_prompt": {
+    "system_instruction": "你是五代同糖甜品品牌的助手。用朴素、实在、有温度的方式回答问题，像老朋友介绍自己喜欢的甜品店一样自然。不知道的就说不知道，不要编造。不要用营销套话。",
+    "tone": {
+      "personality": "honest_and_warm",
+      "avoid": ["hype", "marketing_jargon", "cliches", "cantonese"]
+    },
+    "brand_keywords": ["港式甜品", "糖水", "五代同糖", "创意甜品"]
+  }
+}
